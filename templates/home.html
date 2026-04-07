@@ -25,17 +25,19 @@
     </p>
 
     <form method="GET" action="/">
+        <input type="hidden" name="sort" value="{{ sort_by }}"
         <label for="search">Search:</label>
         <input type="text" id="search" name="search" value="{{ search }}">
         <button type="submit">Search</button>
     </form>
 
     <form method="GET" action="/">
-      <label for="sort">Sort by:</label>
-      <select name="sort" id="sort" onchange="this.form.submit()">
-        <option value="title" {% if sort_by == "title" %}selected{% endif %}>Title</option>
-        <option value="author" {% if sort_by == "author" %}selected{% endif %}>Author</option>
-      </select>
+        <input type="hidden" name="search" value="{{ search }}">
+        <label for="sort">Sort by:</label>
+        <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="title" {% if sort_by == "title" %}selected{% endif %}>Title</option>
+            <option value="author" {% if sort_by == "author" %}selected{% endif %}>Author</option>
+        </select>
     </form>
 
     {% if books %}
@@ -50,7 +52,11 @@
         {% endfor %}
       </ul>
     {% else %}
-      <p>No books in your library yet.</p>
+      {% if search %}
+        <p>No books found for your search.</p>
+      {% else %}
+        <p>No books in your library yet.</p>
+      {% endif %}
     {% endif %}
   </body>
 </html>
