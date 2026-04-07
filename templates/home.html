@@ -48,6 +48,10 @@
                  alt="Cover of {{ book.title }}">
             <strong>{{ book.title }}</strong> by {{ book.author.name }}
             ({{ book.publication_year }}) - ISBN: {{ book.isbn }}
+
+            <form action="/book/{{ book.id }}/delete" method="POST" style="display:inline;">
+                <button type="submit">Delete Book</button>
+            </form>
           </li>
         {% endfor %}
       </ul>
