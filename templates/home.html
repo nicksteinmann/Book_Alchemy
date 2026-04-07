@@ -4,13 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Library</title>
   </head>
   <body>
+    <h1>My Library</h1>
 
-    {% for book in books %}
-    <div> <h3>{{ book.title }}</h3>
-    </div>
-    {% endfor %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 
+    <p>
+      <a href="/add_author">Add Author</a>
+      <a href="/add_book">Add Book</a>
+    </p>
+
+    <form method="GET" action="/">
+      <label for="sort">Sort by:</label>
+      <select name="sort" id="sort" onchange="this.form.submit()">
+        <option value="title" {% if sort_by == "title" %}selected{% endif %}>Title</option>
+        <option value="author" {% if sort_by == "author" %}selected{% endif %}>Author</option>
+      </select>
+    </form>
+
+    {% if books %}
+      <ul>
+        {% for book in books %}
+          <li>
+            <img src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-M.jpg"
+                 alt="Cover of {{ book.title }}">
+            <strong>{{ book.title }}</strong> by {{ book.author.name }}
+            ({{ book.publication_year }}) - ISBN: {{ book.isbn }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No books in your library yet.</p>
+    {% endif %}
   </body>
 </html>
