@@ -4,6 +4,7 @@ db = SQLAlchemy()
 
 
 class Author(db.Model):
+    """Represents an author in the library database."""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
     birth_date = db.Column(db.Date, nullable=False)
@@ -17,6 +18,7 @@ class Author(db.Model):
 
 
 class Book(db.Model):
+    """Represents a book in the library database."""
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     isbn = db.Column(db.String(20), nullable=False)
     title = db.Column(db.String(200), nullable=False)
